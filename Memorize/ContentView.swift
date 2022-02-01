@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+// emoji Collections for themes
+let shoppingEmojis = ["⌚️","📱","💻","🖥","💎","💡","🎁","☎️","🔫","🔌"]
+let weatherEmojis = ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
+let foodEmojis = ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"]
+
+
 struct ContentView: View {
-    //    @todo add more emoijis into the array
-  var emojis = ["🏎", "🍤","🚤","🚅"]
-  @State var emojiCount = 4
+  @State var emojis: [String] = shoppingEmojis
+  @State var emojiCount = 10
   var body: some View {
     VStack{
+      Text("Memorize!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
           ForEach(emojis[0..<emojiCount],id: \.self){ emoji in
@@ -22,32 +28,43 @@ struct ContentView: View {
         }
       }
       Spacer()
-      HStack{
-        remove
+      HStack(){
+        ThemeView(themeIcon: "cart.circle", themeTitle: "Shopping")
+        { updateEmojis(emojiList: shoppingEmojis)}
         Spacer()
-        add
+        ThemeView(themeIcon: "sun.max.circle", themeTitle: "Weather")
+        { updateEmojis(emojiList: weatherEmojis)}
+        Spacer()
+        ThemeView(themeIcon: "fork.knife.circle", themeTitle: "Food")
+        { updateEmojis(emojiList: foodEmojis)}
       }
-      .font(.largeTitle)
       .padding(.horizontal)
-      .foregroundColor(.blue)
     }
     .padding(.horizontal)
     .foregroundColor(.red)
   }
-  var remove: some View{
-    Button(action:{
-      if emojiCount <= 1{return}
-      emojiCount-=1
-    },label:{
-      Image(systemName: "minus.circle")
-    })
+  
+  func updateEmojis(emojiList:[String]){
+    emojis = emojiList.shuffled()
+    // randomise emojiCount
+    emojiCount = Int.random(in: 4..<emojiList.count)
   }
-  var add: some View{
+}
+
+struct ThemeView: View{
+  var themeIcon: String
+  var themeTitle: String
+  var themeAction: () -> Void
+  var body: some View{
     Button(action:{
-      if emojiCount == emojis.count {return}
-      emojiCount+=1
+      themeAction()
     },label:{
-      Image(systemName: "plus.circle")
+      VStack{
+        Image(systemName: themeIcon).font(.largeTitle)
+        Text(themeTitle)
+          .font(.caption)
+      }
+      .foregroundColor(.blue)
     })
   }
 }
@@ -72,6 +89,7 @@ struct CardView:View{
     }
   }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
