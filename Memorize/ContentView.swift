@@ -7,48 +7,26 @@
 
 import SwiftUI
 
-// emoji Collections for themes
-let shoppingEmojis = ["⌚️","📱","💻","🖥","💎","💡","🎁","☎️","🔫","🔌"]
-let weatherEmojis = ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
-let foodEmojis = ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"]
-
 
 struct ContentView: View {
-  @State var emojis: [String] = shoppingEmojis
-  @State var emojiCount = 10
+  var viewModel:EmojiMemoryGame
+  
   var body: some View {
     VStack{
       Text("Memorize!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
-          ForEach(emojis[0..<emojiCount],id: \.self){ emoji in
-            CardView(content: emoji)
+          ForEach(viewModel.cards){ card in
+            CardView(card: card)
               .aspectRatio(2/3, contentMode: .fit)
           }
         }
       }
-      Spacer()
-      HStack(){
-        ThemeView(themeIcon: "cart.circle", themeTitle: "Shopping")
-        { updateEmojis(emojiList: shoppingEmojis)}
-        Spacer()
-        ThemeView(themeIcon: "sun.max.circle", themeTitle: "Weather")
-        { updateEmojis(emojiList: weatherEmojis)}
-        Spacer()
-        ThemeView(themeIcon: "fork.knife.circle", themeTitle: "Food")
-        { updateEmojis(emojiList: foodEmojis)}
-      }
-      .padding(.horizontal)
     }
     .padding(.horizontal)
     .foregroundColor(.red)
   }
   
-  func updateEmojis(emojiList:[String]){
-    emojis = emojiList.shuffled()
-    // randomise emojiCount
-    emojiCount = Int.random(in: 4..<emojiList.count)
-  }
 }
 
 struct ThemeView: View{
@@ -71,21 +49,17 @@ struct ThemeView: View{
 
 
 struct CardView:View{
-  var content: String
-  @State var isFaceUp: Bool = true
+  var card: MemoryGame<String>.Card
   var body: some View{
     ZStack{
       let shape = RoundedRectangle(cornerRadius: 20)
-      if isFaceUp{
+      if card.isFaceUp{
         shape.fill().foregroundColor(.white)
         shape.strokeBorder(lineWidth: 3)
-        Text(content).font(.largeTitle)
+        Text(card.content).font(.largeTitle)
       }else{
         shape.fill()
       }
-    }
-    .onTapGesture{
-      isFaceUp = !isFaceUp
     }
   }
 }
@@ -93,6 +67,7 @@ struct CardView:View{
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+      let game = EmojiMemoryGame()
+      ContentView(viewModel: game)
     }
 }
