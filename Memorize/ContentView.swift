@@ -9,10 +9,9 @@ import SwiftUI
 
 
 struct ContentView: View {
-  var viewModel:EmojiMemoryGame
+  let viewModel:EmojiMemoryGame
   
   var body: some View {
-    VStack{
       Text("Memorize!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
@@ -22,7 +21,6 @@ struct ContentView: View {
           }
         }
       }
-    }
     .padding(.horizontal)
     .foregroundColor(.red)
   }
@@ -49,7 +47,7 @@ struct ThemeView: View{
 
 
 struct CardView:View{
-  var card: MemoryGame<String>.Card
+  let card: MemoryGame<String>.Card
   var body: some View{
     ZStack{
       let shape = RoundedRectangle(cornerRadius: 20)
