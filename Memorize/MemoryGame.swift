@@ -1,9 +1,9 @@
-//
-//  MemoryGame.swift
-//  Memorize
-//
-//  Created by Nikhil Henry on 02/02/22.
-//
+  //
+  //  MemoryGame.swift
+  //  Memorize
+  //
+  //  Created by Nikhil Henry on 02/02/22.
+  //
 
 import Foundation
 
@@ -14,8 +14,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
   
   mutating func choose(_ card:Card){
     if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),
-        !cards[chosenIndex].isFaceUp,
-        !cards[chosenIndex].isMatched
+       !cards[chosenIndex].isFaceUp,
+       !cards[chosenIndex].isMatched
     {
       if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard{
         if cards[chosenIndex].content  == cards[potentialMatchIndex].content {
@@ -23,8 +23,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
           cards[potentialMatchIndex].isMatched = true
         }
         indexOfTheOneAndOnlyFaceUpCard = nil
-      }else{
-//      make all the cards face down
+      }
+      else{
+          //        make all the cards face down
         for index in cards.indices{
           cards[index].isFaceUp = false
         }
@@ -37,7 +38,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
   init(numberOfPairsOfCards:Int, createCardContent:(Int)->CardContent){
     cards = Array<Card>()
     
-//  add numberOfPairsOfCards x 2 cards to cards array
+      //  add numberOfPairsOfCards x 2 cards to cards array
     for pairIndex in 0..<numberOfPairsOfCards{
       let content = createCardContent(pairIndex)
       cards.append(Card(content:content, id: 2*pairIndex))
