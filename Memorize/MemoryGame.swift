@@ -10,8 +10,9 @@ import Foundation
 struct MemoryGame<CardContent>{
   private (set) var cards: Array<Card>
   
-  func choose(_ card:Card){
-    
+  mutating func choose(_ choosenCard:Card){
+    let chosenIndex = cards.firstIndex{card in card.id == choosenCard.id}
+    cards[chosenIndex!].isFaceUp.toggle()
   }
   
   init(numberOfPairsOfCards:Int, createCardContent:(Int)->CardContent){
