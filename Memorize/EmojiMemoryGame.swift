@@ -13,7 +13,7 @@ class EmojiMemoryGame: ObservableObject {
   
   static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"], numberOfPairsToShow: 3, color: "green"))
+    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"], numberOfPairsToShow: 4, color: "green"))
     return themeModel
   }
   
