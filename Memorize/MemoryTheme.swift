@@ -15,6 +15,12 @@ struct MemoryTheme<CardContent>{
     themes.append(theme)
   }
   
+  func getThemeContents()->[CardContent]{
+    let theme = themes[Int.random(in: themes.indices)]
+    let contents = theme.emojiSet.shuffled()
+    return contents
+  }
+  
   struct Theme{
     var name:String
     var emojiSet:[CardContent]

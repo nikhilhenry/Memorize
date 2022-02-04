@@ -17,15 +17,15 @@ class EmojiMemoryGame: ObservableObject {
     return themeModel
   }
   
-  static func createMemoryGame()->MemoryGame<String>{
+  static func createMemoryGame(content:[String])->MemoryGame<String>{
     MemoryGame<String>(numberOfPairsOfCards: 4){ pairIndex in
-      EmojiMemoryGame.emojis[pairIndex]
+      content[pairIndex]
     }
   }
   
-  private var themeModel = createThemeModel()
+  static var themeModel = createThemeModel()
   
-  @Published private var model = createMemoryGame()
+  @Published private var model = createMemoryGame(content: themeModel.getThemeContents())
   
   var cards: Array<MemoryGame<String>.Card> {
     return model.cards
