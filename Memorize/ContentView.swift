@@ -31,25 +31,6 @@ struct ContentView: View {
   }
 }
 
-struct ThemeView: View{
-  var themeIcon: String
-  var themeTitle: String
-  var themeAction: () -> Void
-  var body: some View{
-    Button(action:{
-      themeAction()
-    },label:{
-      VStack{
-        Image(systemName: themeIcon).font(.largeTitle)
-        Text(themeTitle)
-          .font(.caption)
-      }
-      .foregroundColor(.blue)
-    })
-  }
-}
-
-
 struct CardView:View{
   let card: MemoryGame<String>.Card
   var body: some View{
