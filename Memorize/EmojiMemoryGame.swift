@@ -11,13 +11,21 @@ class EmojiMemoryGame: ObservableObject {
   
   static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
   
-  static let themeModel = MemoryTheme<String>()
+  static let foodTheme = MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"], numberOfPairsToShow: 3, color: "green")
+  
+  static func createTheme(_ theme:MemoryTheme<String>.Theme)->MemoryTheme<String>{
+    var themeModel = MemoryTheme<String>()
+    themeModel.addTheme(theme)
+    return themeModel
+  }
   
   static func createMemoryGame()->MemoryGame<String>{
     MemoryGame<String>(numberOfPairsOfCards: 4){ pairIndex in
       EmojiMemoryGame.emojis[pairIndex]
     }
   }
+  
+  private var themeModel: MemoryTheme<String> = createTheme(foodTheme)
   
   @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
   
