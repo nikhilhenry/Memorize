@@ -8,8 +8,13 @@
 import Foundation
 
 struct MemoryTheme<CardContent>{
-  var name:String
-  var emojiSet:[CardContent]
-  var numberOfPairsToShow:Int
-  var color:String
+
+  private var themes: [Theme]
+  
+  struct Theme{
+    var name:String
+    var emojiSet:[CardContent]
+    var numberOfPairsToShow:Int
+    var color:String
+  }
 }
