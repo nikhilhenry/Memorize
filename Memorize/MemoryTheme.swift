@@ -15,16 +15,20 @@ struct MemoryTheme<CardContent>{
     themes.append(theme)
   }
   
-  func getThemeContents()->[CardContent]{
-    let theme = themes[Int.random(in: themes.indices)]
-    let contents = theme.emojiSet.shuffled()
-    return contents
+  func getTheme()->Theme{
+    themes[Int.random(in: themes.indices)]
   }
+  
   
   struct Theme{
     var name:String
     var emojiSet:[CardContent]
     var numberOfPairsToShow:Int
     var color:String
+    
+    func getThemeContents()->[CardContent]{
+      let contents = self.emojiSet.shuffled()
+      return contents
+    }
   }
 }
