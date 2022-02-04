@@ -9,7 +9,9 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
   
-  static let emojis = ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐", "🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
+  static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
+  
+  static let themeModel = MemoryTheme<String>()
   
   static func createMemoryGame()->MemoryGame<String>{
     MemoryGame<String>(numberOfPairsOfCards: 4){ pairIndex in

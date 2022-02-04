@@ -9,7 +9,11 @@ import Foundation
 
 struct MemoryTheme<CardContent>{
 
-  private var themes: [Theme]
+  private var themes: [Theme] = []
+  
+  mutating func addTheme(_ theme:Theme){
+    themes.append(theme)
+  }
   
   struct Theme{
     var name:String
