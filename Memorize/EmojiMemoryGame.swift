@@ -1,9 +1,9 @@
-//
-//  EmojiMemoryGame.swift
-//  Memorize
-//
-//  Created by Nikhil Henry on 02/02/22.
-//
+  //
+  //  EmojiMemoryGame.swift
+  //  Memorize
+  //
+  //  Created by Nikhil Henry on 02/02/22.
+  //
 
 import SwiftUI
 
@@ -11,11 +11,9 @@ class EmojiMemoryGame: ObservableObject {
   
   static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
   
-  static let foodTheme = MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"], numberOfPairsToShow: 3, color: "green")
-  
-  static func createTheme(_ theme:MemoryTheme<String>.Theme)->MemoryTheme<String>{
+  static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
-    themeModel.addTheme(theme)
+    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🍔","🌭","🌮","🌯","🥙","🥗","🍕","🍤","🍝","🥐"], numberOfPairsToShow: 3, color: "green"))
     return themeModel
   }
   
@@ -25,15 +23,15 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-  private var themeModel: MemoryTheme<String> = createTheme(foodTheme)
+  private var themeModel = createThemeModel()
   
-  @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+  @Published private var model = createMemoryGame()
   
   var cards: Array<MemoryGame<String>.Card> {
     return model.cards
   }
   
-//  MARK: - Intent(s)
+    //  MARK: - Intent(s)
   func choose(_ card:MemoryGame<String>.Card){
     model.choose(card)
   }
