@@ -26,11 +26,21 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
           cards[potentialMatchIndex].isMatched = true
         }
         indexOfTheOneAndOnlyFaceUpCard = nil
+//     award point for successful match
+      score+=2
       }
       else{
-//        the card has been seen
-        seenCards.append(card)
-          //        make all the cards face down
+        
+        // check if card has previously been seen
+        if seenCards.contains(where: {$0.id == card.id}){
+          score-=1
+        }else{
+          // the card has been seen
+          seenCards.append(card)
+        }
+        
+        
+        //  make all the cards face down
         for index in cards.indices{
           cards[index].isFaceUp = false
         }
@@ -51,7 +61,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
       cards.append(Card(content:content,id: 2*pairIndex + 1))
     }
     
-//  shuffle the cards after init
+      //  shuffle the cards after init
     cards.shuffle()
   }
   
