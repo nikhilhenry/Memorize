@@ -26,6 +26,16 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
     var numberOfPairsToShow:Int
     var color:String
     
+//  the init with numberOfPairsToShow specified
+    init(name:String,emojiSet:[CardContent],numberOfPairsToShow:Int,color:String) {
+      self.name = name; self.emojiSet = emojiSet; self.numberOfPairsToShow = numberOfPairsToShow; self.color = color
+    }
+//  the init without numberOfPairsToShow specified 
+    init(name:String,emojiSet:[CardContent],color:String) {
+      self.name = name; self.emojiSet = emojiSet;self.color = color;
+      numberOfPairsToShow = emojiSet.count
+    }
+    
     func getThemeContents()->[CardContent]{
       let rawContents = self.emojiSet
 //    get unique list of array items
