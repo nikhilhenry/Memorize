@@ -9,6 +9,9 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable{
   private (set) var cards: Array<Card>
+  private (set) var score = 0
+  
+  private var seenCards:[Card] = []
   
   private var indexOfTheOneAndOnlyFaceUpCard:Int?
   
@@ -25,6 +28,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         indexOfTheOneAndOnlyFaceUpCard = nil
       }
       else{
+//        the card has been seen
+        seenCards.append(card)
           //        make all the cards face down
         for index in cards.indices{
           cards[index].isFaceUp = false
@@ -33,6 +38,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
       }
       cards[chosenIndex].isFaceUp.toggle()
     }
+    print(seenCards)
   }
   
   init(numberOfPairsOfCards:Int, createCardContent:(Int)->CardContent){
