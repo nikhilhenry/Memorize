@@ -28,7 +28,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   private var themeModel: MemoryTheme<String>
-  private var currentTheme: MemoryTheme<String>.Theme
+  private (set) var currentTheme: MemoryTheme<String>.Theme
   @Published private var model: MemoryGame<String>
   
   init() {

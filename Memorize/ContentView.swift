@@ -14,6 +14,7 @@ struct ContentView: View {
   var body: some View {
     VStack{
       Text("Memorize!").font(.largeTitle).foregroundColor(.black)
+      gameMetaView
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
           ForEach(viewModel.cards){ card in
@@ -33,6 +34,13 @@ struct ContentView: View {
         Text("New Game")
       }.buttonStyle(.borderedProminent)
     }
+  }
+  var gameMetaView: some View{
+    HStack{
+      Text("Theme: \(viewModel.currentTheme.name)")
+      Spacer()
+    }
+    .padding()
   }
 }
 
