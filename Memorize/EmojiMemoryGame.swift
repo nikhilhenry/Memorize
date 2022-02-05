@@ -19,6 +19,7 @@ class EmojiMemoryGame: ObservableObject {
     themeModel.addTheme(MemoryTheme<String>.Theme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple"))
     themeModel.addTheme(MemoryTheme<String>.Theme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink"))
     themeModel.addTheme(MemoryTheme<String>.Theme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"],color: "teal"))
+    themeModel.addTheme(MemoryTheme<String>.Theme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],color: "gradient"))
     
 //  can add infinte themes
     return themeModel
