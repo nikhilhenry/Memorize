@@ -14,6 +14,9 @@ class EmojiMemoryGame: ObservableObject {
   static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
     themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗",], numberOfPairsToShow: 10, color: "green"))
+//  add an additional theme
+    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 10, color: "red"))
+//  can add infinte themes
     return themeModel
   }
   
