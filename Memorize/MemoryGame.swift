@@ -48,7 +48,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
       }
       cards[chosenIndex].isFaceUp.toggle()
     }
-    print(seenCards)
   }
   
   init(numberOfPairsOfCards:Int, createCardContent:(Int)->CardContent){
