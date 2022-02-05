@@ -40,6 +40,24 @@ class EmojiMemoryGame: ObservableObject {
     return model.cards
   }
   
+  var themeColor: Color {
+    switch themeModel.getTheme().color.lowercased(){
+    case "red": return Color.red
+    case "green": return Color.green
+    case "pink": return Color.pink
+    case "blue": return Color.blue
+    case "cyan": return Color.cyan
+    case "indigo": return Color.cyan
+    case "mint": return Color.mint
+    case "orange": return Color.orange
+    case "purple": return Color.purple
+    case "teal": return Color.teal
+    case "white": return Color.white
+    case "yellow": return Color.yellow
+    default: return Color.gray
+    }
+  }
+  
     //  MARK: - Intent(s)
   func choose(_ card:MemoryGame<String>.Card){
     model.choose(card)
