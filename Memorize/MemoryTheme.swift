@@ -28,6 +28,7 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
     
     func getThemeContents()->[CardContent]{
       let rawContents = self.emojiSet
+//    get unique list of array items
       let processedContents = Set(rawContents)
       return processedContents.shuffled()
     }
