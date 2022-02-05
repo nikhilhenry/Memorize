@@ -27,9 +27,14 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-  static var themeModel = createThemeModel()
+  private var themeModel: MemoryTheme<String>
+  @Published private var model: MemoryGame<String>
   
-  @Published private var model = createMemoryGame(theme: themeModel.getTheme())
+  init() {
+    themeModel = EmojiMemoryGame.createThemeModel()
+    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getTheme())
+  }
+  
   
   var cards: Array<MemoryGame<String>.Card> {
     return model.cards
