@@ -27,7 +27,9 @@ struct ContentView: View {
       }
       .padding(.horizontal)
       .foregroundColor(viewModel.themeColor)
-      Button{}label: {
+      Button{
+        viewModel.startNewGame()
+      }label: {
         Text("New Game")
       }.buttonStyle(.borderedProminent)
     }
