@@ -57,7 +57,13 @@ struct CardView:View{
       let shape = RoundedRectangle(cornerRadius: 20)
       if card.isFaceUp{
         shape.fill(.white)
-        shape.strokeBorder(lineWidth: 3)
+        switch fill {
+        case .gradient(let gradient):
+          shape.strokeBorder(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom),lineWidth: 3)
+        case .color(let color):
+          shape.strokeBorder(color,lineWidth: 3)
+        }
+        
         Text(card.content).font(.largeTitle)
       }else if card.isMatched{
         shape.opacity(0)
