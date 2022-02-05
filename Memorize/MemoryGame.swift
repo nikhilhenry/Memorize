@@ -24,10 +24,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         if cards[chosenIndex].content  == cards[potentialMatchIndex].content {
           cards[chosenIndex].isMatched = true
           cards[potentialMatchIndex].isMatched = true
+          // award point for successful match
+          score+=2
         }
         indexOfTheOneAndOnlyFaceUpCard = nil
-//     award point for successful match
-      score+=2
       }
       else{
         
