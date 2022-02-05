@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemoryTheme<CardContent>{
+struct MemoryTheme<CardContent> where CardContent: Hashable{
 
   private var themes: [Theme] = []
   
@@ -27,8 +27,9 @@ struct MemoryTheme<CardContent>{
     var color:String
     
     func getThemeContents()->[CardContent]{
-      let contents = self.emojiSet.shuffled()
-      return contents
+      let rawContents = self.emojiSet
+      let processedContents = Set(rawContents)
+      return processedContents.shuffled()
     }
   }
 }
