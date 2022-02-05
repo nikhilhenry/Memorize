@@ -32,5 +32,10 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
       let processedContents = Set(rawContents)
       return processedContents.shuffled()
     }
+    
+    func getNumberOfPairsToShow()->Int{
+      let uniqueItems = Set(emojiSet)
+      return numberOfPairsToShow > uniqueItems.count ? uniqueItems.count : numberOfPairsToShow
+    }
   }
 }
