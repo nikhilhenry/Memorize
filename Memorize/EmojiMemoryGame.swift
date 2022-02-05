@@ -71,7 +71,7 @@ class EmojiMemoryGame: ObservableObject {
     case "teal": return .color(Color.teal)
     case "white": return .color(Color.white)
     case "yellow": return .color(Color.yellow)
-    case "gradient": return .gradient(Gradient.init(colors: [Color.red,Color.blue]))
+    case "gradient": return .gradient(Gradient.init(colors: [Color("Timber2"),Color("Timber1")]))
     default: return .color(Color.gray)
     }
   }
