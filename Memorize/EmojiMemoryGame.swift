@@ -51,21 +51,28 @@ class EmojiMemoryGame: ObservableObject {
     return model.score
   }
   
-  var themeColor: Color {
+  
+  enum ColorOrGradient: ShapeStyle {
+    case gradient(Gradient)
+    case color(Color)
+  }
+  
+  var themeColor: ColorOrGradient {
     switch currentTheme.color.lowercased(){
-    case "red": return Color.red
-    case "green": return Color.green
-    case "pink": return Color.pink
-    case "blue": return Color.blue
-    case "cyan": return Color.cyan
-    case "indigo": return Color.cyan
-    case "mint": return Color.mint
-    case "orange": return Color.orange
-    case "purple": return Color.purple
-    case "teal": return Color.teal
-    case "white": return Color.white
-    case "yellow": return Color.yellow
-    default: return Color.gray
+    case "red": return .color(Color.red)
+    case "green": return .color(Color.green)
+    case "pink": return .color(Color.pink)
+    case "blue": return .color(Color.blue)
+    case "cyan": return .color(Color.cyan)
+    case "indigo": return .color(Color.cyan)
+    case "mint": return .color(Color.mint)
+    case "orange": return .color(Color.orange)
+    case "purple": return .color(Color.purple)
+    case "teal": return .color(Color.teal)
+    case "white": return .color(Color.white)
+    case "yellow": return .color(Color.yellow)
+    case "gradient": return .gradient(Gradient.init(colors: [Color.red,Color.blue]))
+    default: return .color(Color.gray)
     }
   }
   

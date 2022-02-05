@@ -18,7 +18,7 @@ struct ContentView: View {
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
           ForEach(viewModel.cards){ card in
-            CardView(fill:ColorOrGradient.color(viewModel.themeColor), card: card)
+            CardView(fill:viewModel.themeColor, card: card)
               .aspectRatio(2/3, contentMode: .fit)
               .onTapGesture{
                 viewModel.choose(card)
@@ -50,7 +50,7 @@ case color(Color)
 }
 
 struct CardView:View{
-  let fill:ColorOrGradient
+  let fill:EmojiMemoryGame.ColorOrGradient
   let card: MemoryGame<String>.Card
   var body: some View{
     ZStack{
