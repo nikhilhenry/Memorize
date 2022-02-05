@@ -33,7 +33,13 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
 //  the init without numberOfPairsToShow specified 
     init(name:String,emojiSet:[CardContent],color:String) {
       self.name = name; self.emojiSet = emojiSet;self.color = color;
-      numberOfPairsToShow = emojiSet.count
+      if Int.random(in: 0..<1) == 1{
+        numberOfPairsToShow = emojiSet.count
+      }else{
+//       show a random number of cards to show (Extra-credit 2)
+        numberOfPairsToShow = Int.random(in: 1..<emojiSet.count)
+      }
+     
     }
     
     func getThemeContents()->[CardContent]{
