@@ -13,9 +13,9 @@ class EmojiMemoryGame: ObservableObject {
   
   static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗",], numberOfPairsToShow: 10, color: "green"))
+    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗",], numberOfPairsToShow: 3, color: "green"))
 //  add an additional theme
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 10, color: "red"))
+    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red"))
 //  can add infinte themes
     return themeModel
   }
@@ -32,7 +32,7 @@ class EmojiMemoryGame: ObservableObject {
   
   init() {
     themeModel = EmojiMemoryGame.createThemeModel()
-    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getTheme())
+    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getRandomTheme())
   }
   
   
@@ -41,7 +41,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   var themeColor: Color {
-    switch themeModel.getTheme().color.lowercased(){
+    switch themeModel.getRandomTheme().color.lowercased(){
     case "red": return Color.red
     case "green": return Color.green
     case "pink": return Color.pink
@@ -64,7 +64,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   func startNewGame(){
-    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getTheme())
+    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getRandomTheme())
   }
 }
 

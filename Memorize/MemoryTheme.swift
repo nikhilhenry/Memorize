@@ -15,8 +15,8 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
     themes.append(theme)
   }
   
-  func getTheme()->Theme{
-    themes[0]
+  func getRandomTheme()->Theme{
+    themes.randomElement()!
   }
   
   
