@@ -16,7 +16,7 @@ struct MemoryTheme<CardContent> where CardContent: Hashable{
   }
   
   func getTheme()->Theme{
-    themes[Int.random(in: themes.indices)]
+    themes[0]
   }
   
   
