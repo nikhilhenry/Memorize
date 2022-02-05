@@ -28,11 +28,13 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   private var themeModel: MemoryTheme<String>
+  private var currentTheme: MemoryTheme<String>.Theme
   @Published private var model: MemoryGame<String>
   
   init() {
     themeModel = EmojiMemoryGame.createThemeModel()
-    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getRandomTheme())
+    currentTheme = themeModel.getRandomTheme()
+    model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
   
   
@@ -41,7 +43,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   var themeColor: Color {
-    switch themeModel.getRandomTheme().color.lowercased(){
+    switch currentTheme.color.lowercased(){
     case "red": return Color.red
     case "green": return Color.green
     case "pink": return Color.pink
@@ -64,7 +66,9 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   func startNewGame(){
-    model = EmojiMemoryGame.createMemoryGame(theme: themeModel.getRandomTheme())
+//  reset theme and model
+    currentTheme = themeModel.getRandomTheme()
+    model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
 }
 
