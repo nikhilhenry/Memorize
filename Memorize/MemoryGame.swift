@@ -15,7 +15,11 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
   
   private var indexOfTheOneAndOnlyFaceUpCard:Int?
   
+  private var timeSinceLastCard:Date?
+  
   mutating func choose(_ card:Card){
+    
+    
     if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),
        !cards[chosenIndex].isFaceUp,
        !cards[chosenIndex].isMatched
@@ -25,6 +29,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
           cards[chosenIndex].isMatched = true
           cards[potentialMatchIndex].isMatched = true
           // award point for successful match
+          if let timeSinceLastCard = timeSinceLastCard {
+            score+=(2 * max(Int(10-timeSinceLastCard.timeIntervalSinceNow),1))
+          }
           score+=2
         }
         indexOfTheOneAndOnlyFaceUpCard = nil
@@ -39,7 +46,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
           seenCards.append(card)
         }
         
-        
         //  make all the cards face down
         for index in cards.indices{
           cards[index].isFaceUp = false
@@ -47,6 +53,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         indexOfTheOneAndOnlyFaceUpCard = chosenIndex
       }
       cards[chosenIndex].isFaceUp.toggle()
+      
+      timeSinceLastCard = Date()
     }
   }
   
