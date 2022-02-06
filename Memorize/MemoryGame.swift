@@ -29,10 +29,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
           cards[chosenIndex].isMatched = true
           cards[potentialMatchIndex].isMatched = true
           // award point for successful match
-          if let timeSinceLastCard = timeSinceLastCard {
-            score+=(2 * max(Int(10-timeSinceLastCard.timeIntervalSinceNow),1))
-          }
-          score+=2
+          computeScore(isMatched: true)
         }
         indexOfTheOneAndOnlyFaceUpCard = nil
       }
@@ -40,7 +37,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         
         // check if card has previously been seen
         if seenCards.contains(where: {$0.id == card.id}){
-          score-=1
+          computeScore(isMatched: false)
         }else{
           // the card has been seen
           seenCards.append(card)
@@ -56,6 +53,20 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
       
       timeSinceLastCard = Date()
     }
+  }
+  
+// compute score based on timeSinceLastCard was chosen (Extra-credit 4)
+  
+  mutating func computeScore(isMatched:Bool){
+    
+    var pointsMultiplier = 1
+    
+    if let timeSinceLastCard = timeSinceLastCard{
+      pointsMultiplier = max(Int(10-timeSinceLastCard.timeIntervalSinceNow),1)
+    }
+    
+    score = isMatched ? score + 2 * pointsMultiplier : score - 1 * pointsMultiplier
+    
   }
   
   init(numberOfPairsOfCards:Int, createCardContent:(Int)->CardContent){
