@@ -31,7 +31,9 @@ struct ContentView: View {
         viewModel.startNewGame()
       }label: {
         Text("New Game")
-      }.buttonStyle(.borderedProminent)
+      }
+      .buttonStyle(.borderedProminent)
+      .padding()
     }
   }
   var gameMetaView: some View{
