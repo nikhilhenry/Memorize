@@ -34,7 +34,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         }
         indexOfTheOneAndOnlyFaceUpCard = chosenIndex
       }
-      cards[chosenIndex].isFaceUp.toggle()
+      cards[chosenIndex].isFaceUp = true
     }
   }
   
