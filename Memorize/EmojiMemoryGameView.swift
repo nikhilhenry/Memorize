@@ -51,7 +51,7 @@ struct ThemeView: View{
 
 
 struct CardView:View{
-  let card: MemoryGame<String>.Card
+  let card: EmojiMemoryGame.Card
   var body: some View{
     ZStack{
       let shape = RoundedRectangle(cornerRadius: 20)
