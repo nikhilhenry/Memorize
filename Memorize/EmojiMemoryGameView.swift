@@ -207,7 +207,11 @@ struct CardView: View {
         Text(card.content)
           .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
         // only view modifiers ABOVE this .animation call are animated by it
-          .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
+          .animation(
+            .linear(duration: 1)
+                      .repeatForever(autoreverses:false),
+            value:card.isMatched
+          )
           .padding(5)
           .font(Font.system(size: DrawingConstants.fontSize))
         // view modifications like this .scaleEffect are not affected by the call to .animation ABOVE it
