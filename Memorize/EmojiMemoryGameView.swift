@@ -19,7 +19,7 @@ struct EmojiMemoryGameView: View {
   var body: some View {
     ZStack(alignment: .bottom) {
       VStack {
-        Text("Score: \(game.score)")
+        gameMetaView
         gameBody
         HStack {
           restart
@@ -29,6 +29,15 @@ struct EmojiMemoryGameView: View {
         .padding(.horizontal)
       }
       deckBody
+    }
+    .padding()
+  }
+  
+  var gameMetaView: some View{
+    HStack{
+      Text("Theme: \(game.currentTheme.name)")
+      Spacer()
+      Text("Score: \(game.score)")
     }
     .padding()
   }
