@@ -12,22 +12,23 @@ class EmojiMemoryGame: ObservableObject {
   static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
   
   typealias Card = MemoryGame<String>.Card
+  typealias Theme = MemoryTheme<String>.Theme
   
   static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green"))
+    themeModel.addTheme(Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green"))
 //  add an additional theme
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red"))
-    themeModel.addTheme(MemoryTheme<String>.Theme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple"))
-    themeModel.addTheme(MemoryTheme<String>.Theme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink"))
-    themeModel.addTheme(MemoryTheme<String>.Theme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"],color: "teal"))
-    themeModel.addTheme(MemoryTheme<String>.Theme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],color: "gradient"))
+    themeModel.addTheme(Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red"))
+    themeModel.addTheme(Theme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple"))
+    themeModel.addTheme(Theme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink"))
+    themeModel.addTheme(Theme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"],color: "teal"))
+    themeModel.addTheme(Theme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],color: "gradient"))
     
 //  can add infinte themes
     return themeModel
   }
   
-  static func createMemoryGame(theme:MemoryTheme<String>.Theme)->MemoryGame<String>{
+  static func createMemoryGame(theme:Theme)->MemoryGame<String>{
     let contents = theme.getThemeContents()
     return MemoryGame<String>(numberOfPairsOfCards:theme.getNumberOfPairsToShow()){ pairIndex in
       contents[pairIndex]
@@ -35,7 +36,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   private var themeModel: MemoryTheme<String>
-  private (set) var currentTheme: MemoryTheme<String>.Theme
+  private (set) var currentTheme: Theme
   @Published private var model: MemoryGame<String>
   
   init() {
