@@ -17,6 +17,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
   
   private var timeSinceLastCard:Date?
   
+  mutating func shuffle(){
+    cards.shuffle()
+  }
+  
   mutating func choose(_ card:Card){
     
     

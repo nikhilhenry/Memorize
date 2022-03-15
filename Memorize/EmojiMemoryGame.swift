@@ -1,9 +1,9 @@
-  //
-  //  EmojiMemoryGame.swift
-  //  Memorize
-  //
-  //  Created by Nikhil Henry on 02/02/22.
-  //
+//
+//  EmojiMemoryGame.swift
+//  Memorize
+//
+//  Created by Nikhil Henry on 02/02/22.
+//
 
 import SwiftUI
 
@@ -17,14 +17,14 @@ class EmojiMemoryGame: ObservableObject {
   static func createThemeModel()->MemoryTheme<String>{
     var themeModel = MemoryTheme<String>()
     themeModel.addTheme(Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green"))
-//  add an additional theme
+    //  add an additional theme
     themeModel.addTheme(Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red"))
     themeModel.addTheme(Theme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple"))
     themeModel.addTheme(Theme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink"))
     themeModel.addTheme(Theme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"],color: "teal"))
     themeModel.addTheme(Theme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],color: "gradient"))
     
-//  can add infinte themes
+    //  can add infinte themes
     return themeModel
   }
   
@@ -79,13 +79,17 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-    //  MARK: - Intent(s)
+  //  MARK: - Intent(s)
   func choose(_ card:Card){
     model.choose(card)
   }
   
+  func shuffle(){
+    model.shuffle()
+  }
+  
   func startNewGame(){
-//  reset theme and model
+    //  reset theme and model
     currentTheme = themeModel.getRandomTheme()
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
