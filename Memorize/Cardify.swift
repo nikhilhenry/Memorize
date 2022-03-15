@@ -9,14 +9,20 @@ import SwiftUI
 
 // AnimatableModifier is just a combo of the Animatable and ViewModifier protocols
 struct Cardify: AnimatableModifier {
+  
+  typealias ColorOrGradient = EmojiMemoryGame.ColorOrGradient
   // views that use us only think of isFaceUp-ness
   // but we think in terms of rotation
   // (since we can animate our rotation)
   // so this init is a convenience for views that use us
   // (we just turn isFaceUp to the appropriate rotation)
-  init(isFaceUp: Bool) {
+  init(isFaceUp: Bool, fill:ColorOrGradient) {
     rotation = isFaceUp ? 0 : 180
+    cardFill = fill
   }
+  
+//  var fill to fill the background of the card
+  var cardFill: ColorOrGradient
   
   // this is the var in the Animatable protocol
   // (which the protocol AnimatableModifier inherits)
@@ -39,12 +45,12 @@ struct Cardify: AnimatableModifier {
   // the only difference is that what's on the card is the given content argument
   func body(content: Content) -> some View {
     ZStack {
-      let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+      let shape = cardBack()
       if rotation < 90 {
-        shape.fill().foregroundColor(.white)
+        RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius).fill().foregroundColor(.white)
         shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
       } else {
-        shape.fill()
+        shape
       }
       // we don't put this inside the "if rotation < 90"
       // because we don't want our content being removed and put back into the UI all the time
@@ -61,6 +67,17 @@ struct Cardify: AnimatableModifier {
     .rotation3DEffect(Angle.degrees(rotation), axis: (0, 1, 0))
   }
   
+  @ViewBuilder
+  private func cardBack() -> some View{
+    let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+    switch cardFill {
+    case .gradient(let gradient):
+      shape.fill(.linearGradient(gradient, startPoint: .top, endPoint: .bottom))
+    case .color(let color):
+      shape.fill(color)
+    }
+  }
+  
   private struct DrawingConstants {
     static let cornerRadius: CGFloat = 10
     static let lineWidth: CGFloat = 3
@@ -70,7 +87,7 @@ struct Cardify: AnimatableModifier {
 // add the cardify(isFaceUp:) func to the View protocol
 // purely syntactic sugar for views that want to use our Cardify view modifier
 extension View {
-  func cardify(isFaceUp: Bool) -> some View {
-    self.modifier(Cardify(isFaceUp: isFaceUp))
+  func cardify(isFaceUp: Bool,fill: EmojiMemoryGame.ColorOrGradient) -> some View {
+    self.modifier(Cardify(isFaceUp: isFaceUp,fill: fill))
   }
 }

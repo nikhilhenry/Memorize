@@ -74,7 +74,7 @@ struct EmojiMemoryGameView: View {
       if isUndealt(card) || (card.isMatched && !card.isFaceUp) {
         Color.clear
       } else {
-        CardView(card: card)
+        CardView(card: card, cardFill: game.themeColor)
         // see other CardView below that has same matchedGeometryEffect
         // if that one arrives/departs the UI
         // at the same time that we are departing/arriving
@@ -101,7 +101,7 @@ struct EmojiMemoryGameView: View {
   var deckBody: some View {
     ZStack {
       ForEach(game.cards.filter(isUndealt)) { card in
-        CardView(card: card)
+        CardView(card: card, cardFill: game.themeColor)
         // see other matchedGeometryEffect above
           .matchedGeometryEffect(id: card.id, in: dealingNamespace)
         // removal: .identity here because removal of this CardView
@@ -168,6 +168,7 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
   let card: EmojiMemoryGame.Card
+  let cardFill: EmojiMemoryGame.ColorOrGradient
   
   @State private var animatedBonusRemaining: Double = 0
   
@@ -217,7 +218,7 @@ struct CardView: View {
       // it turns our ZStack with a Pie and a Text in it into a "card" on screen
       // it does this by just returning its own ZStack with RoundedRectangles and such in it
       // see Cardify.swift
-      .cardify(isFaceUp: card.isFaceUp)
+      .cardify(isFaceUp: card.isFaceUp,fill:cardFill)
     }
   }
   
