@@ -19,6 +19,7 @@ struct EmojiMemoryGameView: View {
   var body: some View {
     ZStack(alignment: .bottom) {
       VStack {
+        Text("Score: \(game.score)")
         gameBody
         HStack {
           restart
