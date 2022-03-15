@@ -45,12 +45,22 @@ struct Cardify: AnimatableModifier {
   // the only difference is that what's on the card is the given content argument
   func body(content: Content) -> some View {
     ZStack {
-      let shape = cardBack()
+      let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
       if rotation < 90 {
-        RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius).fill().foregroundColor(.white)
-        shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+        shape.fill().foregroundColor(.white)
+        switch cardFill {
+        case .gradient(let gradient):
+          shape.strokeBorder(.linearGradient(gradient, startPoint: .top, endPoint: .bottom),lineWidth: DrawingConstants.lineWidth)
+        case .color(let color):
+          shape.strokeBorder(color,lineWidth: DrawingConstants.lineWidth)
+        }
       } else {
-        shape
+        switch cardFill {
+        case .gradient(let gradient):
+          shape.fill(.linearGradient(gradient, startPoint: .top, endPoint: .bottom))
+        case .color(let color):
+          shape.fill(color)
+        }
       }
       // we don't put this inside the "if rotation < 90"
       // because we don't want our content being removed and put back into the UI all the time
@@ -65,17 +75,6 @@ struct Cardify: AnimatableModifier {
     // above we are showing or hiding the front/back as rotation passes 90
     // here we are doing the actual 3D rotation effect for however many degrees we've rotated
     .rotation3DEffect(Angle.degrees(rotation), axis: (0, 1, 0))
-  }
-  
-  @ViewBuilder
-  private func cardBack() -> some View{
-    let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-    switch cardFill {
-    case .gradient(let gradient):
-      shape.fill(.linearGradient(gradient, startPoint: .top, endPoint: .bottom))
-    case .color(let color):
-      shape.fill(color)
-    }
   }
   
   private struct DrawingConstants {
