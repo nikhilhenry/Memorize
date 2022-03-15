@@ -88,7 +88,7 @@ class EmojiMemoryGame: ObservableObject {
     model.shuffle()
   }
   
-  func startNewGame(){
+  func restart(){
     //  reset theme and model
     currentTheme = themeModel.getRandomTheme()
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
