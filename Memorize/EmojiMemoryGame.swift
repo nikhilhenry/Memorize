@@ -14,20 +14,6 @@ class EmojiMemoryGame: ObservableObject {
   typealias Card = MemoryGame<String>.Card
   typealias Theme = MemoryTheme<String>.Theme
   
-  static func createThemeModel()->MemoryTheme<String>{
-    var themeModel = MemoryTheme<String>()
-    themeModel.addTheme(Theme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green"))
-    //  add an additional theme
-    themeModel.addTheme(Theme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red"))
-    themeModel.addTheme(Theme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple"))
-    themeModel.addTheme(Theme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink"))
-    themeModel.addTheme(Theme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"],color: "teal"))
-    themeModel.addTheme(Theme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],color: "gradient"))
-    
-    //  can add infinte themes
-    return themeModel
-  }
-  
   static func createMemoryGame(theme:Theme)->MemoryGame<String>{
     let contents = theme.getThemeContents()
     return MemoryGame<String>(numberOfPairsOfCards:theme.getNumberOfPairsToShow()){ pairIndex in
@@ -39,8 +25,8 @@ class EmojiMemoryGame: ObservableObject {
   private (set) var currentTheme: Theme
   @Published private var model: MemoryGame<String>
   
-  init() {
-    themeModel = EmojiMemoryGame.createThemeModel()
+  init(theme: MemoryTheme<String>) {
+    themeModel = theme
     currentTheme = themeModel.getRandomTheme()
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
