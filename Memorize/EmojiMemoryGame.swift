@@ -12,7 +12,7 @@ class EmojiMemoryGame: ObservableObject {
   static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
   
   typealias Card = MemoryGame<String>.Card
-  typealias Theme = MemoryTheme<String>.Theme
+  typealias Theme = ThemeStore<String>.Theme
   
   static func createMemoryGame(theme:Theme)->MemoryGame<String>{
     let contents = theme.getThemeContents()
@@ -21,11 +21,11 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-  private var themeModel: MemoryTheme<String>
+  private var themeModel: ThemeStore<String>
   private (set) var currentTheme: Theme
   @Published private var model: MemoryGame<String>
   
-  init(theme: MemoryTheme<String>) {
+  init(theme: ThemeStore<String>) {
     themeModel = theme
     currentTheme = themeModel.getRandomTheme()
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
