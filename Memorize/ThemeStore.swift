@@ -45,11 +45,43 @@ class ThemeStore{
     }
   }
   
+  init(){
+    restoreFromUserDefaults()
+    if themes.isEmpty{
+      // add default themes
+      insertTheme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green")
+      insertTheme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red")
+      insertTheme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple")
+      insertTheme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink")
+      insertTheme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"], numberOfPairsToShow: 8,color: "teal")
+      insertTheme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],numberOfPairsToShow:7 ,color: "gradient")
+    }
+  }
+  
   
   // MARK: - Intents
   
-  func addTheme(_ theme:Theme<String>){
-    themes.append(theme)
+  
+  func theme(at index: Int) -> Theme<String> {
+    let safeIndex = min(max(index, 0), themes.count - 1)
+    return themes[safeIndex]
+  }
+  
+  @discardableResult
+  func removeTheme(at index: Int) -> Int {
+    if themes.count > 1, themes.indices.contains(index) {
+      themes.remove(at: index)
+    }
+    return index % themes.count
+  }
+  
+  func insertTheme(name:String, emojiSet:[String], numberOfPairsToShow:Int, color:String, at index: Int = 0){
+    
+    let safeId = min(max(index, 0),themes.count)
+    
+    let theme = Theme<String>(name: name, emojiSet: emojiSet, numberOfPairsToShow: numberOfPairsToShow, color: color, id: safeId)
+    
+    themes.insert(theme, at: index)
   }
   
 }
