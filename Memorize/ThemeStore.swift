@@ -27,7 +27,12 @@ struct Theme<CardContent>:Identifiable,Codable where CardContent: Codable{
 
 class ThemeStore: ObservableObject{
   
-  @Published var themes = [Theme<String>]()
+  @Published var themes = [Theme<String>]()  {
+    didSet {
+      storeInUserDefaults()
+    }
+  }
+  
   
   // MARK: - Persistence Handling
   
@@ -49,12 +54,12 @@ class ThemeStore: ObservableObject{
     restoreFromUserDefaults()
     if themes.isEmpty{
       // add default themes
-      insertTheme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green")
-      insertTheme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red")
-      insertTheme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple")
-      insertTheme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink")
-      insertTheme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"], numberOfPairsToShow: 8,color: "teal")
-      insertTheme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],numberOfPairsToShow:7 ,color: "gradient")
+      insertTheme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green",at: 0)
+      insertTheme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red",at: 1)
+      insertTheme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple",at: 2)
+      insertTheme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink",at: 3)
+      insertTheme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"], numberOfPairsToShow: 8,color: "teal",at: 4)
+      insertTheme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],numberOfPairsToShow:7 ,color: "gradient",at: 5)
     }
   }
   
