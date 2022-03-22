@@ -67,16 +67,16 @@
 		9F339DDC27A8FE20003636B7 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				9F1AC8D027E065B300118613 /* AspectVGrid.swift */,
 				9F1AC8CC27E0656500118613 /* Cardify.swift */,
+				9F3483F327AAFFE900E96B0A /* EmojiMemoryGame.swift */,
+				9F339DDF27A8FE20003636B7 /* EmojiMemoryGameView.swift */,
+				9F339DDD27A8FE20003636B7 /* MemorizeApp.swift */,
+				9F3483F127AAFDC700E96B0A /* MemoryGame.swift */,
+				9F1AC8CE27E0659500118613 /* Pie.swift */,
 				9F1D7FA927E8862C007F5E17 /* ThemeChooser.swift */,
 				9F1D7FAB27E8869E007F5E17 /* ThemeManager.swift */,
 				9F814E1927AD978C00FBE8FF /* ThemeStore.swift */,
-				9F3483F327AAFFE900E96B0A /* EmojiMemoryGame.swift */,
-				9F3483F127AAFDC700E96B0A /* MemoryGame.swift */,
-				9F339DDD27A8FE20003636B7 /* MemorizeApp.swift */,
-				9F339DDF27A8FE20003636B7 /* EmojiMemoryGameView.swift */,
-				9F1AC8CE27E0659500118613 /* Pie.swift */,
-				9F1AC8D027E065B300118613 /* AspectVGrid.swift */,
 				9F339DE127A8FE23003636B7 /* Assets.xcassets */,
 				9F339DE327A8FE23003636B7 /* Preview Content */,
 			);

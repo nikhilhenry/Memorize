@@ -21,13 +21,11 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
   
-  private var themeModel: ThemeStore<String>
   private (set) var currentTheme: Theme
   @Published private var model: MemoryGame<String>
   
-  init(theme: ThemeStore<String>) {
-    themeModel = theme
-    currentTheme = themeModel.getRandomTheme()
+  init(theme: Theme) {
+    currentTheme = theme
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
   
@@ -75,8 +73,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   func restart(){
-    //  reset theme and model
-    currentTheme = themeModel.getRandomTheme()
+    //  reset game model
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
 }
