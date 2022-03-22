@@ -17,17 +17,22 @@ struct ThemeChooser: View{
     NavigationView {
       List {
         ForEach(store.themes) { theme in
-          Text(theme.name)
+          NavigationLink(destination: EmojiMemoryGameView(game: EmojiMemoryGame(theme: theme)))
+          {
+            VStack(alignment: .leading){
+              Text(theme.name)
+              Text(theme.emojiSet[...4].joined())
+            }
+          }
         }
       }
+      .navigationTitle("Memorize")
     }
-    .navigationTitle("Manage Palettes")
-    .navigationBarTitleDisplayMode(.inline)
   }
 }
 
 struct ThemeChooser_Previews: PreviewProvider {
   static var previews: some View {
-    ThemeChooser()
+    ThemeChooser().environmentObject(ThemeStore())
   }
 }
