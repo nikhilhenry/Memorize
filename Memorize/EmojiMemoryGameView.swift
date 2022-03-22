@@ -54,7 +54,7 @@ struct EmojiMemoryGameView: View {
   
   // returns whether the given card has not been dealt yet
   private func isUndealt(_ card: EmojiMemoryGame.Card) -> Bool {
-    !dealt.contains(card.id)
+    !dealt.contains(card.id) && !game.isDealt
   }
   
   // an Animation used to deal the cards out "not all at the same time"
@@ -96,6 +96,8 @@ struct EmojiMemoryGameView: View {
           .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
           .zIndex(zIndex(of: card))
           .onTapGesture {
+            // the user has started to play the game after all cards have been dealt
+            game.isDealt = true
             // animate the user Intent function that chooses a card
             // (using the default animation)
             withAnimation {
