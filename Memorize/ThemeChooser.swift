@@ -7,19 +7,27 @@
 
 import SwiftUI
 
+// The main view to select and display themes at the beginning of the game
+
 struct ThemeChooser: View{
   
-  @ObservedObject var themeStore: ThemeManager
+  @EnvironmentObject var store: ThemeStore
   
   var body: some View{
     NavigationView {
       List {
-        ForEach(themeStore.themes) { theme in
-          Text(theme)
+        ForEach(store.themes) { theme in
+          Text(theme.name)
         }
       }
     }
     .navigationTitle("Manage Palettes")
     .navigationBarTitleDisplayMode(.inline)
+  }
+}
+
+struct ThemeChooser_Previews: PreviewProvider {
+  static var previews: some View {
+    ThemeChooser()
   }
 }

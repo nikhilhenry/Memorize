@@ -12,19 +12,18 @@ class EmojiMemoryGame: ObservableObject {
   static let emojis =  ["🌡","☁️","☀️","🌤","🌥","⛅️","🌦","🌧","⛈","⚡️"]
   
   typealias Card = MemoryGame<String>.Card
-  typealias Theme = ThemeStore<String>.Theme
-  
-  static func createMemoryGame(theme:Theme)->MemoryGame<String>{
-    let contents = theme.getThemeContents()
-    return MemoryGame<String>(numberOfPairsOfCards:theme.getNumberOfPairsToShow()){ pairIndex in
+
+  static func createMemoryGame(theme:Theme<String>)->MemoryGame<String>{
+    let contents = theme.emojiSet
+    return MemoryGame<String>(numberOfPairsOfCards:theme.numberOfPairsToShow){ pairIndex in
       contents[pairIndex]
     }
   }
   
-  private (set) var currentTheme: Theme
+  private (set) var currentTheme: Theme<String>
   @Published private var model: MemoryGame<String>
   
-  init(theme: Theme) {
+  init(theme: Theme<String>) {
     currentTheme = theme
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }

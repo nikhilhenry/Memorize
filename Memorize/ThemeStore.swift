@@ -25,7 +25,7 @@ struct Theme<CardContent>:Identifiable,Codable where CardContent: Codable{
   }
 }
 
-class ThemeStore{
+class ThemeStore: ObservableObject{
   
   @Published var themes = [Theme<String>]()
   
