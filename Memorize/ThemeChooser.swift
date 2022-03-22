@@ -13,11 +13,13 @@ struct ThemeChooser: View{
   
   @EnvironmentObject var store: ThemeStore
   
+  @State var games: [Int: EmojiMemoryGame] = [:]
+  
   var body: some View{
     NavigationView {
       List {
         ForEach(store.themes) { theme in
-          NavigationLink(destination: EmojiMemoryGameView(game: EmojiMemoryGame(theme: theme)))
+          NavigationLink(destination: NavigationLazyView(loadGame(themeId: theme.id)))
           {
             VStack(alignment: .leading){
               Text(theme.name)
@@ -28,6 +30,29 @@ struct ThemeChooser: View{
       }
       .navigationTitle("Memorize")
     }
+  }
+  
+  private func loadGame(themeId: Int) -> EmojiMemoryGameView{
+    if let game = games[themeId]{
+      print("loading existing game")
+      return EmojiMemoryGameView(game: game)
+    }
+    else {
+      print("creating new game")
+      let game = EmojiMemoryGame(theme: store.theme(at: themeId))
+      games[themeId] = game
+      return EmojiMemoryGameView(game: game)
+    }
+  }
+}
+
+struct NavigationLazyView<Content: View>: View {
+  let build: () -> Content
+  init(_ build: @autoclosure @escaping () -> Content) {
+    self.build = build
+  }
+  var body: Content {
+    build()
   }
 }
 
