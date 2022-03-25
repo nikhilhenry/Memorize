@@ -45,6 +45,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   var themeColor: ColorOrGradient {
+    // TODO: - Add support for gradient again
     return .color(Color(rgbaColor: currentTheme.color))
   }
   
