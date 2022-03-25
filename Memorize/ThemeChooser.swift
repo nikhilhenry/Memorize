@@ -61,6 +61,9 @@ struct ThemeChooser: View{
   private func tap(_ theme: Theme<String>) -> some Gesture{
     TapGesture().onEnded {
       themeToEdit = theme
+      // assuming theme will be changedd
+      games.removeValue(forKey: theme.id)
+      
     }
   }
   
