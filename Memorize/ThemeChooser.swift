@@ -23,7 +23,7 @@ struct ThemeChooser: View{
           {
             VStack(alignment: .leading){
               Text(theme.name)
-              Text(theme.emojiSet[...4].joined())
+              Text(theme.emojiSet.joined())
             }
           }
         }
