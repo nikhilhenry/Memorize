@@ -50,7 +50,12 @@ struct ThemeChooser: View{
   }
   
   private var AddButton:some View{
-    Button(action:{ managing = true }, label:{Image(systemName: "plus")})
+    Button{
+      let newIndex = store.themes.count
+      store.insertTheme(name: "New", emojis: "", numberOfPairsToShow: 0, color: RGBAColor(color: .red),at: newIndex)
+      themeToEdit = store.theme(at: newIndex)
+    }
+      label:{ Image(systemName: "plus") }
   }
   
   private func tap(_ theme: Theme<String>) -> some Gesture{

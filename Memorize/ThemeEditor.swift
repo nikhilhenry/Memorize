@@ -84,8 +84,9 @@ struct ThemeEditor: View {
   
   
   var numberOfPairsToShowSection: some View {
-    Section(header: Text("Card Count")){
-      Stepper(value: $theme.numberOfPairsToShow,in: 1...theme.emojiSet.count,step: 1) {
+    let range = theme.emojiSet.count > 0 ? 1...theme.emojiSet.count : 0...theme.emojiSet.count
+    return Section(header: Text("Card Count")){
+      Stepper(value: $theme.numberOfPairsToShow,in: range,step: 1) {
         Text("\(theme.numberOfPairsToShow) Pairs")
       }
     }
