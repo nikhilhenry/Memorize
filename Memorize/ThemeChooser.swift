@@ -36,10 +36,15 @@ struct ThemeChooser: View{
       }
       .navigationTitle("Memorize")
       .toolbar {
-        ToolbarItem {EditButton()}
+        ToolbarItem(placement: .navigationBarLeading){ AddButton }
+        ToolbarItem(placement: .navigationBarTrailing){ EditButton() }
       }
       .environment(\.editMode, $editMode)
     }
+  }
+  
+  private var AddButton:some View{
+    Button(action:{}, label:{Image(systemName: "plus")})
   }
   
   private var tap: some Gesture{
