@@ -17,6 +17,9 @@ struct ThemeChooser: View{
   
   @State private var editMode:EditMode = .inactive
   
+  @State private var managing = false
+  @State private var themeToEdit: Theme<String>?
+  
   var body: some View{
     NavigationView {
       List {
@@ -24,7 +27,7 @@ struct ThemeChooser: View{
           NavigationLink(destination: NavigationLazyView(loadGame(themeId: theme.id)))
           {
             ThemeView(theme:theme)
-            .gesture(editMode == .active ? tap:nil)
+            .gesture(editMode == .active ? tap(theme):nil)
           }
         }
         .onDelete { indexSet in
@@ -41,14 +44,19 @@ struct ThemeChooser: View{
       }
       .environment(\.editMode, $editMode)
     }
+    .sheet(item: $themeToEdit){ theme in
+      ThemeEditor(theme: $store.themes[theme.id])
+    }
   }
   
   private var AddButton:some View{
-    Button(action:{}, label:{Image(systemName: "plus")})
+    Button(action:{ managing = true }, label:{Image(systemName: "plus")})
   }
   
-  private var tap: some Gesture{
-    TapGesture().onEnded {}
+  private func tap(_ theme: Theme<String>) -> some Gesture{
+    TapGesture().onEnded {
+      themeToEdit = theme
+    }
   }
   
   private func loadGame(themeId: Int) -> EmojiMemoryGameView{
