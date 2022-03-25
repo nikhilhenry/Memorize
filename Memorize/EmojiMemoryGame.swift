@@ -60,6 +60,7 @@ class EmojiMemoryGame: ObservableObject {
   
   func restart(){
     //  reset game model
+    isDealt = false
     model = EmojiMemoryGame.createMemoryGame(theme:currentTheme)
   }
 }
