@@ -13,7 +13,9 @@ struct ThemeChooser: View{
   
   @EnvironmentObject var store: ThemeStore
   
-  @State var games: [Int: EmojiMemoryGame] = [:]
+  @State private var games: [Int: EmojiMemoryGame] = [:]
+  
+  @State private var editMode:EditMode = .inactive
   
   var body: some View{
     NavigationView {
@@ -25,11 +27,26 @@ struct ThemeChooser: View{
               Text(theme.name)
               Text(theme.emojiSet.joined())
             }
+            .gesture(editMode == .active ? tap:nil)
           }
+        }
+        .onDelete { indexSet in
+          store.themes.remove(atOffsets: indexSet)
+        }
+        .onMove { indexSet, newOffset in
+          store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
         }
       }
       .navigationTitle("Memorize")
+      .toolbar {
+        ToolbarItem {EditButton()}
+      }
+      .environment(\.editMode, $editMode)
     }
+  }
+  
+  private var tap: some Gesture{
+    TapGesture().onEnded {}
   }
   
   private func loadGame(themeId: Int) -> EmojiMemoryGameView{
