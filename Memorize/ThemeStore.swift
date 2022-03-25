@@ -84,7 +84,7 @@ class ThemeStore: ObservableObject{
     
     let safeId = min(max(index, 0),themes.count)
     
-    let emojiSet = emojis.map {String($0)}
+    let emojiSet = Array(Set(emojis.map {String($0)}))
     let cardPairs = min(numberOfPairsToShow,emojiSet.count)
     
     let theme = Theme<String>(name: name, emojiSet:emojiSet, numberOfPairsToShow:cardPairs, color: color, id: safeId)
