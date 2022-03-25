@@ -13,10 +13,10 @@ struct Theme<CardContent>:Identifiable,Codable where CardContent: Codable{
   var name:String
   var emojiSet:[CardContent]
   var numberOfPairsToShow:Int
-  var color:String
+  var color:RGBAColor
   let id:Int
   
-  fileprivate init(name: String, emojiSet: [CardContent], numberOfPairsToShow:Int,color:String, id: Int) {
+  fileprivate init(name: String, emojiSet: [CardContent], numberOfPairsToShow:Int,color:RGBAColor, id: Int) {
     self.name = name
     self.emojiSet = emojiSet
     self.numberOfPairsToShow = numberOfPairsToShow
@@ -54,12 +54,12 @@ class ThemeStore: ObservableObject{
     restoreFromUserDefaults()
     if themes.isEmpty{
       // add default themes
-      insertTheme(name: "Food", emojiSet: ["🌭","🌭","🍕","🍤","🍗","🌯","🍓","🍔","🍱","🍌"], numberOfPairsToShow: 3, color: "green",at: 0)
-      insertTheme(name: "Vehicles", emojiSet: ["🏎","✈️","🚅","🚜","🚁"], numberOfPairsToShow: 4, color: "red",at: 1)
-      insertTheme(name: "Test", emojiSet: ["🐧","👻","✏️","🏀 ","🐼 "], numberOfPairsToShow: 5, color: "purple",at: 2)
-      insertTheme(name:"Weather",emojiSet: ["☃️","🌨","🌩","⛈","🌧","🌦","☁️","🌬","❄️","🌈","☀️","⛅️","💫","❄️"],numberOfPairsToShow: 6,color: "pink",at: 3)
-      insertTheme(name:"Study",emojiSet: ["🧪","📜","📙","📘","📗","📕","📒","📔","📓","📝"], numberOfPairsToShow: 8,color: "teal",at: 4)
-      insertTheme(name:"Mixed",emojiSet: ["😊","🦄","🍤","🌯","🎧","❤️","💭"],numberOfPairsToShow:7 ,color: "gradient",at: 5)
+      insertTheme(name: "Food", emojis:"🌭🌭🍕🍤🍗🌯🍓🍔🍱🍌", numberOfPairsToShow: 3, color: RGBAColor(color: .green),at: 0)
+      insertTheme(name: "Vehicles", emojis:"🏎✈️🚅🚜🚁", numberOfPairsToShow: 4, color: RGBAColor(color: .red),at: 1)
+      insertTheme(name: "Test", emojis:"🐧👻✏️🏀🐼", numberOfPairsToShow: 5, color: RGBAColor(color: .purple),at: 2)
+      insertTheme(name:"Weather",emojis:"☃️🌨🌩⛈🌧🌦☁️🌬❄️🌈☀️⛅️💫❄️",numberOfPairsToShow: 6, color:RGBAColor(color: .pink),at: 3)
+      insertTheme(name:"Study",emojis:"🧪📜📘📗📕📒📔📓📝", numberOfPairsToShow: 8,color:RGBAColor(color: .teal),at: 4)
+      insertTheme(name:"Mixed",emojis:"😊🦄🍤🌯🎧❤️💭",numberOfPairsToShow:7 ,color: RGBAColor(color: .blue),at: 5)
     }
   }
   
@@ -80,13 +80,22 @@ class ThemeStore: ObservableObject{
     return index % themes.count
   }
   
-  func insertTheme(name:String, emojiSet:[String], numberOfPairsToShow:Int, color:String, at index: Int = 0){
+  func insertTheme(name:String, emojis:String, numberOfPairsToShow:Int, color:RGBAColor, at index: Int = 0){
     
     let safeId = min(max(index, 0),themes.count)
     
-    let theme = Theme<String>(name: name, emojiSet: emojiSet, numberOfPairsToShow: numberOfPairsToShow, color: color, id: safeId)
+    let theme = Theme<String>(name: name, emojiSet:Array(arrayLiteral: emojis), numberOfPairsToShow: numberOfPairsToShow, color: color, id: safeId)
     
     themes.insert(theme, at: index)
   }
   
+}
+
+// Codable Color Implementation
+
+struct RGBAColor: Codable,Hashable,Equatable {
+  let red: Double
+  let green: Double
+  let blue: Double
+  let alpha: Double
 }
