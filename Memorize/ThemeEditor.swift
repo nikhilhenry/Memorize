@@ -38,6 +38,7 @@ struct ThemeEditor: View {
       addEmojisSection
       removeEmojisSection
       numberOfPairsToShowSection
+      colorSection
     }
   }
   // Form components
@@ -87,6 +88,18 @@ struct ThemeEditor: View {
       Stepper(value: $theme.numberOfPairsToShow,in: 1...theme.emojiSet.count,step: 1) {
         Text("\(theme.numberOfPairsToShow) Pairs")
       }
+    }
+  }
+  
+  @State private var color:Color = .green
+  
+  var colorSection: some View {
+    Section(header:Text("Theme Color")){
+      ColorPicker("Color Picker",selection: $color)
+        .onChange(of: color){color in
+          theme.color = RGBAColor(color: color)
+        }
+        .onAppear{ color = Color(rgbaColor: theme.color) }
     }
   }
 }
