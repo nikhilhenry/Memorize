@@ -23,10 +23,7 @@ struct ThemeChooser: View{
         ForEach(store.themes) { theme in
           NavigationLink(destination: NavigationLazyView(loadGame(themeId: theme.id)))
           {
-            VStack(alignment: .leading){
-              Text(theme.name)
-              Text(theme.emojiSet.joined())
-            }
+            ThemeView(theme:theme)
             .gesture(editMode == .active ? tap:nil)
           }
         }
@@ -59,6 +56,26 @@ struct ThemeChooser: View{
       let game = EmojiMemoryGame(theme: store.theme(at: themeId))
       games[themeId] = game
       return EmojiMemoryGameView(game: game)
+    }
+  }
+}
+
+struct ThemeView:View{
+  let theme:Theme<String>
+  
+  private var emojiDisplayCount:Int{
+    min(theme.numberOfPairsToShow,8)
+  }
+  
+  private var emojiDisplayMessage:String{
+    emojiDisplayCount == theme.emojiSet.count ? "All of " : "\(emojiDisplayCount) pairs from "
+  }
+  
+  var body: some View{
+    VStack(alignment: .leading){
+      Text(theme.name).foregroundColor(Color(rgbaColor: theme.color))
+      Text(emojiDisplayMessage + theme.emojiSet.joined())
+        .lineLimit(1)
     }
   }
 }
