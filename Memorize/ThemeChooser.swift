@@ -37,6 +37,7 @@ struct ThemeChooser: View{
           store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
         }
       }
+      .listStyle(.inset)
       .navigationTitle("Memorize")
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading){ AddButton }
