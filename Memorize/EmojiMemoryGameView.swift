@@ -31,6 +31,7 @@ struct EmojiMemoryGameView: View {
       deckBody
     }
     .padding()
+    .navigationBarTitleDisplayMode(.inline)
   }
   
   var gameMetaView: some View{
