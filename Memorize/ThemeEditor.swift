@@ -18,7 +18,7 @@ struct ThemeEditor: View {
   var body: some View{
     NavigationView{
       editorForm
-        .navigationTitle("Theme Editor")
+        .navigationTitle(theme.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar{
           ToolbarItem(placement: .navigationBarLeading){
@@ -37,6 +37,7 @@ struct ThemeEditor: View {
       nameSection
       addEmojisSection
       removeEmojisSection
+      numberOfPairsToShowSection
     }
   }
   // Form components
@@ -77,6 +78,15 @@ struct ThemeEditor: View {
         }
       }
       .font(.system(size: 40))
+    }
+  }
+  
+  
+  var numberOfPairsToShowSection: some View {
+    Section(header: Text("Card Count")){
+      Stepper(value: $theme.numberOfPairsToShow,in: 1...theme.emojiSet.count,step: 1) {
+        Text("\(theme.numberOfPairsToShow) Pairs")
+      }
     }
   }
 }
